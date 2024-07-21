@@ -6,30 +6,29 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
 @Entity
-@Table(name = "TB_PUBLISHER")
+@Table(name = "TB_TENANT")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Publisher {
+public class Tenant extends User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "ID", nullable = false)
+    @Column(name = "id", nullable = false)
     private String id;
 
-    @Column(name = "NAME", nullable = false, length = 100)
-    private String name;
+    @OneToOne
+    @JoinColumn(name = "id_user")
+    private User user;
 
     @Column(name = "ADDRESS", nullable = false, length = 255)
     private String address;
 
-    @Column(name = "PHONE", nullable = false, length = 255)
-    private String phone;
+    @Column(name = "CPF", nullable = false, length = 11)
+    private String cpf;
 
-    @Column(name = "REGISTRATION_DATE", nullable = false)
-    private LocalDateTime registrationDate;
+    @Column(name = "PHONE", nullable = false, length = 20)
+    private String phone;
 }

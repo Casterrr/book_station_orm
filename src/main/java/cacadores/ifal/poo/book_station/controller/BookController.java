@@ -3,6 +3,8 @@ package cacadores.ifal.poo.book_station.controller;
 import cacadores.ifal.poo.book_station.exception.BookNotFoundException;
 import cacadores.ifal.poo.book_station.model.entity.items.Book;
 import cacadores.ifal.poo.book_station.service.ItemService;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/book")
+@RequestMapping("/api/book")
+@Tag(name = "Book", description = "APIs for managing books")
 public class BookController {
     @Autowired
     private ItemService itemService;

@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public class Book extends Item {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "book_id", nullable = false)
+    @Column(name = "id", nullable = false)
     private String id;
 
     @Column(name = "isbn", nullable = false, length = 20)

@@ -9,27 +9,21 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "TB_PUBLISHER")
+@Table(name = "TB_GENRE")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Publisher {
+public class Genre {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "ID", nullable = false)
     private String id;
 
-    @Column(name = "NAME", nullable = false, length = 100)
+    @Column(name = "NAME", nullable = false, length = 20)
     private String name;
 
-    @Column(name = "ADDRESS", nullable = false, length = 255)
-    private String address;
-
-    @Column(name = "PHONE", nullable = false, length = 255)
-    private String phone;
-
-    @Column(name = "REGISTRATION_DATE", nullable = false)
-    private LocalDateTime registrationDate;
+    @Column(name = "CREATION_DATE", nullable = false)
+    private LocalDateTime creationDate;
 }

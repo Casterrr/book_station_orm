@@ -3,6 +3,8 @@ package cacadores.ifal.poo.book_station.controller;
 import cacadores.ifal.poo.book_station.exception.MagazineNotFoundException;
 import cacadores.ifal.poo.book_station.model.entity.items.Magazine;
 import cacadores.ifal.poo.book_station.service.ItemService;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/magazine")
+@RequestMapping("/api/magazine")
+@Tag(name = "Magazine", description = "APIs for managing magazines")
 public class MagazineController {
     @Autowired
     private ItemService itemService;

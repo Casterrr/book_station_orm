@@ -1,7 +1,7 @@
 package cacadores.ifal.poo.book_station.model.entity.items;
 
 import cacadores.ifal.poo.book_station.model.entity.Author;
-import cacadores.ifal.poo.book_station.model.entity.Genero;
+import cacadores.ifal.poo.book_station.model.entity.Genre;
 import cacadores.ifal.poo.book_station.model.entity.Publisher;
 import jakarta.persistence.*;
 
@@ -20,20 +20,20 @@ import java.time.LocalDateTime;
 public abstract class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "item_id")
+    @Column(name = "id")
     private String id;
 
-//    @ManyToOne
-//    @JoinColumn(name = "publisher_id")
-//    private Publisher publisher;
+    @ManyToOne
+    @JoinColumn(name = "publisher_id")
+    private Publisher publisher;
 
-//    @ManyToOne
-//    @JoinColumn(name = "author_id")
-//    private Author author;
+    @ManyToOne
+    @JoinColumn(name = "author_id")
+    private Author author;
 
     @ManyToOne
     @JoinColumn(name = "genre_id")
-    private Genero genre;
+    private Genre genre;
 
     @Column(name = "title", nullable = false, length = 255)
     private String title;

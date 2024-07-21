@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class Magazine extends Item {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "maganize_id")
+    @Column(name = "id")
     private String id;
 
     @Column(name = "issn")
