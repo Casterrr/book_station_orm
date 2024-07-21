@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "TB_AUTOR")
+@Table(name = "TB_AUTHOR")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -18,21 +18,19 @@ import java.time.LocalDateTime;
 public class Author {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_AUTOR", nullable = false)
-    private Integer idAutor;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id", nullable = false)
+    private String id;
 
-    @Column(name = "NOME_AUTOR", nullable = false, length = 255)
-    private String nomeAutor;
+    @Column(name = "name", nullable = false, length = 255)
+    private String name;
 
-    @Column(name = "DAT_NASCIMENTO", nullable = false)
-    private LocalDate dataNascimentoAutor;
+    @Column(name = "birth_date", nullable = false)
+    private LocalDate birthDate;
 
-    @Column(name = "BIOGRAFIA", length = 255)
-    private String biografiaAutor;
+    @Column(name = "biography", length = 255)
+    private String biography;
 
-    @Column(name = "DTH_CADASTRO_AUTOR", nullable = false)
-    private LocalDateTime dataCadastroAutor;
-
-    // Os getters e setters são gerados automaticamente pelo Lombok
+    @Column(name = "registration_date", nullable = false)
+    private LocalDateTime registrationDate;
 }
