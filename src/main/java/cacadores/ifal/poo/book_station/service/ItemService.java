@@ -1,5 +1,7 @@
 package cacadores.ifal.poo.book_station.service;
 
+import cacadores.ifal.poo.book_station.exception.BookAlreadyExistsException;
+import cacadores.ifal.poo.book_station.exception.BookNotFoundException;
 import cacadores.ifal.poo.book_station.model.entity.items.Book;
 import cacadores.ifal.poo.book_station.model.entity.items.Magazine;
 import cacadores.ifal.poo.book_station.repository.BookRepository;
@@ -20,6 +22,17 @@ public class ItemService {
     MagazineRepository magazineRepository;
 
     public Book addBook(Book book) {
+        if (book.getId() != null && bookRepository.existsById(book.getId())) {
+            throw new BookAlreadyExistsException("Livro com ID " + book.getId() + " já existe.");
+        }
+        return bookRepository.save(book);
+    }
+
+    public Book updateBook(String id, Book book) {
+        if (!bookRepository.existsById(id)) {
+            throw new BookNotFoundException("Livro com ID " + id + " não encontrado.");
+        }
+        book.setId(id);
         return bookRepository.save(book);
     }
 
@@ -28,7 +41,8 @@ public class ItemService {
     }
 
     public Book getBookById(String id) {
-        return bookRepository.findBookById(id);
+        return bookRepository.findById(id)
+                .orElseThrow(() -> new BookNotFoundException("Livro com ID " + id + " não encontrado."));
     }
 
     public List<Book> getBooks() {
