@@ -23,10 +23,20 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 
+  @ExceptionHandler(GenreNotFoundException.class)
+    public ResponseEntity<String> handleGenreNotFoundException(GenreNotFoundException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
   @ExceptionHandler(MagazineAlreadyExistsException.class)
   public ResponseEntity<String> handleMagazineAlreadyExistsException(MagazineAlreadyExistsException ex) {
       return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
   }
+
+  @ExceptionHandler(GenreAlreadyExistsException.class)
+    public ResponseEntity<String> handleGenreAlreadyExistsException(GenreAlreadyExistsException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
+    }
 
   // Tratamento genérico para outras exceções não tratadas
   @ExceptionHandler(Exception.class)

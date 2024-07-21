@@ -1,5 +1,6 @@
 package cacadores.ifal.poo.book_station.service;
 
+import cacadores.ifal.poo.book_station.exception.GenreAlreadyExistsException;
 import cacadores.ifal.poo.book_station.model.entity.Genre;
 import cacadores.ifal.poo.book_station.repository.GenreRepository;
 import cacadores.ifal.poo.book_station.exception.GenreNotFoundException;
@@ -15,7 +16,11 @@ public class GenreService {
     private GenreRepository genreRepository;
 
     public List<Genre> getAllGenres() {
-        return genreRepository.findAll();
+        List<Genre> genres = genreRepository.findAll();
+        if (genres.isEmpty()) {
+            throw new GenreNotFoundException("Nenhum gênero encontrado");
+        }
+        return genres;
     }
 
     public Genre getGenreById(String id) {
@@ -24,11 +29,15 @@ public class GenreService {
     }
 
     public Genre createGenre(Genre genre) {
+        if (genreRepository.findByNameIgnoreCase(genre.getName()).isPresent()) {
+            throw new GenreAlreadyExistsException("Already exists a genre with this name: " + genre.getName());
+        }
         return genreRepository.save(genre);
     }
 
     public Genre updateGenre(String id, Genre genreDetails) {
-        Genre genre = getGenreById(id);
+        Genre genre = genreRepository.findById(id)
+            .orElseThrow(() -> new GenreNotFoundException("Genre not found with id: "+id));
         genre.setName(genreDetails.getName());
         genre.setCreationDate(genreDetails.getCreationDate());
         return genreRepository.save(genre);
