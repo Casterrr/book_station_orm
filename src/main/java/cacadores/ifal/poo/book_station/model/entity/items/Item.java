@@ -20,16 +20,16 @@ import java.time.LocalDateTime;
 public abstract class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "item_id")
+    @Column(name = "id")
     private String id;
 
-//    @ManyToOne
-//    @JoinColumn(name = "publisher_id")
-//    private Publisher publisher;
+    // @ManyToOne
+    // @JoinColumn(name = "publisher_id")
+    // private Publisher publisher;
 
-//    @ManyToOne
-//    @JoinColumn(name = "author_id")
-//    private Author author;
+    // @ManyToOne
+    // @JoinColumn(name = "author_id")
+    // private Author author;
 
     @ManyToOne
     @JoinColumn(name = "genre_id")
