@@ -34,11 +34,10 @@ public class BookController {
         return new ResponseEntity<List<Book>>(itemService.getBooks(), HttpStatus.OK);
     }
 
-    @PutMapping()
-    public ResponseEntity<Book> updateBook(@RequestBody Book book) {
-        if (book.getId() == null)
-            throw new BookNotFoundException("Book not found");
-        return new ResponseEntity<>(itemService.addBook(book), HttpStatus.OK);
+    @PutMapping("/{id}")
+    public ResponseEntity<Book> updateBook(@PathVariable String id, @RequestBody Book book) {
+        // Usamos o método updateBook do ItemService
+        return new ResponseEntity<>(itemService.updateBook(id, book), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

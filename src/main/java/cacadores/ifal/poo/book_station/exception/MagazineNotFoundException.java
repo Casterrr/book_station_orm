@@ -5,4 +5,3 @@ public class MagazineNotFoundException extends RuntimeException {
         super(message);
     }
 }
-
