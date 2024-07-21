@@ -8,28 +8,33 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-  @ExceptionHandler(BookNotFoundException.class)
-  public ResponseEntity<String> handleBookNotFoundException(BookNotFoundException ex) {
-      return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
-  }
+    @ExceptionHandler(BookNotFoundException.class)
+    public ResponseEntity<String> handleBookNotFoundException(BookNotFoundException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
 
-  @ExceptionHandler(BookAlreadyExistsException.class)
-  public ResponseEntity<String> handleBookAlreadyExistsException(BookAlreadyExistsException ex) {
-      return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
-  }
+    @ExceptionHandler(BookAlreadyExistsException.class)
+    public ResponseEntity<String> handleBookAlreadyExistsException(BookAlreadyExistsException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
+    }
 
-  @ExceptionHandler(MagazineNotFoundException.class)
+    @ExceptionHandler(MagazineNotFoundException.class)
     public ResponseEntity<String> handleMagazineNotFoundException(MagazineNotFoundException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 
-  @ExceptionHandler(MagazineAlreadyExistsException.class)
-  public ResponseEntity<String> handleMagazineAlreadyExistsException(MagazineAlreadyExistsException ex) {
-      return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
-  }
+    @ExceptionHandler(MagazineAlreadyExistsException.class)
+    public ResponseEntity<String> handleMagazineAlreadyExistsException(MagazineAlreadyExistsException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+    }
 
-  // Tratamento genérico para outras exceções não tratadas
-  @ExceptionHandler(Exception.class)
+//   @ExceptionHandler(MagazineAlreadyExistsException.class)
+//   public ResponseEntity<String> handleMagazineAlreadyExistsException(MagazineAlreadyExistsException ex) {
+//       return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
+//   }
+
+    // Tratamento genérico para outras exceções não tratadas
+    @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleGenericException(Exception ex) {
         String errorMessage = "Oooopa!! Ocorreu um erro interno no servidor: " + ex.getMessage();
         return new ResponseEntity<>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);

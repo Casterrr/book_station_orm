@@ -1,21 +1,20 @@
-package cacadores.ifal.poo.book_station.dto.Book;
+package cacadores.ifal.poo.book_station.dto.Magazine;
 
-import lombok.Data;
 import java.time.LocalDateTime;
 
+import lombok.Data;
+
 @Data
-public class BookResponseDTO {
+public class MagazineResponseDTO {
     private String id;
     private String title;
-    private String isbn;
-    private String synopsis;
-    private String language;
+    private String issn;
+    private Integer edition;
     private Integer year;
     private Integer availableQuantity;
     private Integer pages;
     private String status;
     private String publisherName;
-    private String authorName;
     private String genreName;
     private LocalDateTime registrationDate;
 }

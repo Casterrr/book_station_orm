@@ -5,12 +5,13 @@ import lombok.Data;
 @Data
 public class BookUpdateDTO {
     private String title;
-    private int year;
-    private int availableQuantity;
-    private int pages;
     private String isbn;
     private String synopsis;
     private String language;
+    private Integer year;
+    private Integer availableQuantity;
+    private Integer pages;
+    private String status;
     private String publisherId;
     private String authorId;
     private String genreId;
