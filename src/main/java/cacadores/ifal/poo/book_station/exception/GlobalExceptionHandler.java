@@ -28,10 +28,40 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
     }
 
-//   @ExceptionHandler(MagazineAlreadyExistsException.class)
-//   public ResponseEntity<String> handleMagazineAlreadyExistsException(MagazineAlreadyExistsException ex) {
-//       return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
-//   }
+    @ExceptionHandler(GenreAlreadyExistsException.class)
+    public ResponseEntity<String> handleGenreAlreadyExistsException(GenreAlreadyExistsException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(GenreNotFoundException.class)
+    public ResponseEntity<String> handleGenreNotFoundException(GenreNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(AuthorAlreadyExistsException.class)
+    public ResponseEntity<String> handleAuthorAlreadyExistsException(AuthorAlreadyExistsException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(AuthorNotFoundException.class)
+    public ResponseEntity<String> handleAuthorNotFoundException(AuthorNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(PublisherAlreadyExistsException.class)
+    public ResponseEntity<String> handlePublisherAlreadyExistsException(PublisherAlreadyExistsException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(PublisherNotFoundException.class)
+    public ResponseEntity<String> handlePublisherNotFoundException(PublisherNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
 
     // Tratamento genérico para outras exceções não tratadas
     @ExceptionHandler(Exception.class)
@@ -39,4 +69,5 @@ public class GlobalExceptionHandler {
         String errorMessage = "Oooopa!! Ocorreu um erro interno no servidor: " + ex.getMessage();
         return new ResponseEntity<>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+    
 }
