@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "tb_maganize")
 @Getter
@@ -29,5 +31,6 @@ public class Magazine extends Item {
 
     public Magazine() {
         this.type = "MAGAZINE";
+        this.registrationDate = LocalDateTime.now();
     }
 }

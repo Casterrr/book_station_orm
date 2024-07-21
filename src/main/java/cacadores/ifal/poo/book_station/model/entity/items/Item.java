@@ -23,13 +23,13 @@ public abstract class Item {
     @Column(name = "item_id")
     private String id;
 
-    @ManyToOne
-    @JoinColumn(name = "publisher_id")
-    private Publisher publisher;
+//    @ManyToOne
+//    @JoinColumn(name = "publisher_id")
+//    private Publisher publisher;
 
-    @ManyToOne
-    @JoinColumn(name = "author_id")
-    private Author author;
+//    @ManyToOne
+//    @JoinColumn(name = "author_id")
+//    private Author author;
 
     @ManyToOne
     @JoinColumn(name = "genre_id")
@@ -41,7 +41,7 @@ public abstract class Item {
     @Column(name = "year")
     private Integer year;
 
-    @Column(name = "type", nullable = false, length = 1)
+    @Column(name = "type", nullable = false)
     protected String type;
 
     @Column(name = "available_quantity", nullable = false)
@@ -54,5 +54,5 @@ public abstract class Item {
     private String status;
 
     @Column(name = "registration_date")
-    private LocalDateTime registrationDate;
+    protected LocalDateTime registrationDate;
 }

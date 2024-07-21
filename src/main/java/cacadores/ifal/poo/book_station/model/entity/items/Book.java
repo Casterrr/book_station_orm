@@ -3,8 +3,9 @@ package cacadores.ifal.poo.book_station.model.entity.items;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "tb_book")
@@ -28,5 +29,6 @@ public class Book extends Item {
 
     public Book() {
         this.type = "BOOK";
+        this.registrationDate = LocalDateTime.now();
     }
 }
