@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/genres")
-@Tag(name = "Genres", description = "API for managing genres")
+@Tag(name = "Genre", description = "API for managing genres")
 public class GenreController {
 
     @Autowired

@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/employees")
-@Tag(name = "Employees", description = "API for managing employees")
+@Tag(name = "Employee", description = "API for managing employees")
 public class EmployeeController {
 
     @Autowired
