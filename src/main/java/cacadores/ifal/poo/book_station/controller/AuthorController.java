@@ -1,15 +1,24 @@
 package cacadores.ifal.poo.book_station.controller;
 
-import cacadores.ifal.poo.book_station.model.entity.Author;
-import cacadores.ifal.poo.book_station.service.AuthorService;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import cacadores.ifal.poo.book_station.dto.Author.AuthorCreateDTO;
+import cacadores.ifal.poo.book_station.dto.Author.AuthorResponseDTO;
+import cacadores.ifal.poo.book_station.dto.Author.AuthorUpdateDTO;
+import cacadores.ifal.poo.book_station.service.AuthorService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/api/authors")
@@ -19,24 +28,24 @@ public class AuthorController {
     @Autowired
     private AuthorService authorService;
 
-    @GetMapping
-    public ResponseEntity<List<Author>> getAllAuthors() {
-        return ResponseEntity.ok(authorService.getAllAuthors());
+    @GetMapping()
+    public ResponseEntity<List<AuthorResponseDTO>> getAllAuthors() {
+        return new ResponseEntity<>(authorService.getAllAuthors(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Author> getAuthorById(@PathVariable String id) {
-        return ResponseEntity.ok(authorService.getAuthorById(id));
+    public ResponseEntity<AuthorResponseDTO> getAuthorById(@PathVariable String id) {
+        return new ResponseEntity<>(authorService.getAuthorById(id), HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<Author> createAuthor(@RequestBody Author author) {
-        return new ResponseEntity<>(authorService.createAuthor(author), HttpStatus.CREATED);
+    @PostMapping()
+    public ResponseEntity<AuthorResponseDTO> createAuthor(@RequestBody AuthorCreateDTO authorCreateDTO) {
+        return new ResponseEntity<>(authorService.addAuthor(authorCreateDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Author> updateAuthor(@PathVariable String id, @RequestBody Author authorDetails) {
-        return ResponseEntity.ok(authorService.updateAuthor(id, authorDetails));
+    public ResponseEntity<AuthorResponseDTO> updateAuthor(@PathVariable String id, @RequestBody AuthorUpdateDTO authorUpdateDTO) {
+        return new ResponseEntity<>(authorService.updateAuthor(id, authorUpdateDTO), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
