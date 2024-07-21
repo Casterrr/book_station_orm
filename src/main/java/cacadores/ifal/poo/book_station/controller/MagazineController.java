@@ -34,11 +34,9 @@ public class MagazineController {
         return new ResponseEntity<List<Magazine>>(itemService.getMagazines(), HttpStatus.OK);
     }
 
-    @PutMapping()
-    public ResponseEntity<Magazine> updateMagazine(@RequestBody Magazine magazine) {
-        if (magazine.getId() == null)
-            throw new MagazineNotFoundException("Magazine not found");
-        return new ResponseEntity<>(itemService.addMagazine(magazine), HttpStatus.OK);
+    @PutMapping("/{id}")
+    public ResponseEntity<Magazine> updateMagazine(@PathVariable String id, @RequestBody Magazine magazine) {
+        return new ResponseEntity<>(itemService.updateMagazine(id, magazine), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

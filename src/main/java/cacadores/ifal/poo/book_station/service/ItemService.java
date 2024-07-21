@@ -2,6 +2,8 @@ package cacadores.ifal.poo.book_station.service;
 
 import cacadores.ifal.poo.book_station.exception.BookAlreadyExistsException;
 import cacadores.ifal.poo.book_station.exception.BookNotFoundException;
+import cacadores.ifal.poo.book_station.exception.MagazineAlreadyExistsException;
+import cacadores.ifal.poo.book_station.exception.MagazineNotFoundException;
 import cacadores.ifal.poo.book_station.model.entity.items.Book;
 import cacadores.ifal.poo.book_station.model.entity.items.Magazine;
 import cacadores.ifal.poo.book_station.repository.BookRepository;
@@ -37,6 +39,17 @@ public class ItemService {
     }
 
     public Magazine addMagazine(Magazine magazine) {
+        if (magazine.getId() != null && magazineRepository.existsById(magazine.getId())) {
+            throw new MagazineAlreadyExistsException("Revista com ID " + magazine.getId() + " já existe.");
+        }
+        return magazineRepository.save(magazine);
+    }
+
+    public Magazine updateMagazine(String id, Magazine magazine) {
+        if (!magazineRepository.existsById(id)) {
+            throw new MagazineNotFoundException("Revista com ID " + id + " não encontrada.");
+        }
+        magazine.setId(id);
         return magazineRepository.save(magazine);
     }
 
@@ -50,7 +63,8 @@ public class ItemService {
     }
 
     public Magazine getMagazineById(String id) {
-        return magazineRepository.findMagazineById(id);
+        return magazineRepository.findById(id)
+                .orElseThrow(() -> new MagazineNotFoundException("Revista com ID " + id + " não encontrada."));
     }
 
     public List<Magazine> getMagazines() {

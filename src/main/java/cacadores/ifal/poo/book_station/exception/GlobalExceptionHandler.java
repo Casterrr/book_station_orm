@@ -18,9 +18,20 @@ public class GlobalExceptionHandler {
       return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
   }
 
+  @ExceptionHandler(MagazineNotFoundException.class)
+    public ResponseEntity<String> handleMagazineNotFoundException(MagazineNotFoundException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+  @ExceptionHandler(MagazineAlreadyExistsException.class)
+  public ResponseEntity<String> handleMagazineAlreadyExistsException(MagazineAlreadyExistsException ex) {
+      return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
+  }
+
   // Tratamento genérico para outras exceções não tratadas
   @ExceptionHandler(Exception.class)
-  public ResponseEntity<String> handleGenericException(Exception ex) {
-      return new ResponseEntity<>("Oooopa!! Ocorreu um erro interno no servidor...", HttpStatus.INTERNAL_SERVER_ERROR);
-  }
+    public ResponseEntity<String> handleGenericException(Exception ex) {
+        String errorMessage = "Oooopa!! Ocorreu um erro interno no servidor: " + ex.getMessage();
+        return new ResponseEntity<>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }
