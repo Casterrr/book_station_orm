@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/magazine")
-@Tag(name = "Magazine Management", description = "APIs for managing magazines")
+@Tag(name = "Magazine", description = "APIs for managing magazines")
 public class MagazineController {
     @Autowired
     private ItemService itemService;

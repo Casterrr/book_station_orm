@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/authors")
-@Tag(name = "Author Management", description = "APIs for managing authors")
+@Tag(name = "Author", description = "APIs for managing authors")
 public class AuthorController {
 
     @Autowired
