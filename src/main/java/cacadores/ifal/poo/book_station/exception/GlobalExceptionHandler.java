@@ -80,6 +80,21 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 
+    @ExceptionHandler(TenantAlreadyExistsException.class)
+    public ResponseEntity<String> handleTenantAlreadyExistsException(TenantAlreadyExistsException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(TenantNotFoundException.class)
+    public ResponseEntity<String> handleTenantNotFoundException(TenantNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(TenantValidationException.class)
+    public ResponseEntity<String> handleTenantValidationException(TenantValidationException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
     // Tratamento genérico para outras exceções não tratadas
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleGenericException(Exception ex) {
