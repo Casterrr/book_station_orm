@@ -10,17 +10,17 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "TB_RESERVA")
+@Table(name = "TB_RESERVATION")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Reserva {
+public class Reservation {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_RESERVA", nullable = false)
-    private Integer idReserva;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "ID_RESERVATION", nullable = false)
+    private String id;
 
     @ManyToOne
     @JoinColumn(name = "ID_USER")
@@ -30,9 +30,9 @@ public class Reserva {
     @JoinColumn(name = "ID_ITEM")
     private Item item;
 
-    @Column(name = "IND_ATENDIDA", nullable = false, length = 1)
-    private String indicadorAtendida;
+    @Column(name = "IS_FULFILLED", nullable = false)
+    private Boolean isFulfilled;
 
-    @Column(name = "DTH_RESERVA", nullable = false)
-    private LocalDateTime dataReserva;
+    @Column(name = "RESERVATION_DATE", nullable = false)
+    private LocalDateTime reservationDate;
 }
