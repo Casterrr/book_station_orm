@@ -1,4 +1,4 @@
-package cacadores.ifal.poo.book_station.dto;
+package cacadores.ifal.poo.book_station.dto.User;
 
 import lombok.Data;
 

@@ -1,6 +1,7 @@
 package cacadores.ifal.poo.book_station.service;
 
-import cacadores.ifal.poo.book_station.dto.UserCreateDTO;
+import cacadores.ifal.poo.book_station.dto.User.UserCreateDTO;
+import cacadores.ifal.poo.book_station.dto.User.UserUpdateDTO;
 import cacadores.ifal.poo.book_station.model.entity.User;
 import cacadores.ifal.poo.book_station.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +36,15 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User updateUser(User user) {
-        return userRepository.save(user);
+    public Optional<User> updateUser(String id, UserUpdateDTO userUpdateDTO) {
+        Optional<User> existingUser = getUserById(id);
+        if (existingUser.isPresent()) {
+            User user = existingUser.get();
+            user.setName(userUpdateDTO.getName());
+            user.setEmail(userUpdateDTO.getEmail());
+            return Optional.of(userRepository.save(user));
+        }
+        return Optional.empty();
     }
 
     public void deleteUser(String id) {
