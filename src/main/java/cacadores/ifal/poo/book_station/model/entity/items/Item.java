@@ -50,7 +50,7 @@ public abstract class Item {
     @Column(name = "pages", nullable = false)
     private Integer pages;
 
-    @Column(name = "status", length = 1)
+    @Column(name = "status")
     private String status;
 
     @Column(name = "registration_date")

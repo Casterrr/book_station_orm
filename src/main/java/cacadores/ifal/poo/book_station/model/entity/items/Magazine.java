@@ -14,19 +14,19 @@ import java.time.LocalDateTime;
 public class Magazine extends Item {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "maganize_id", nullable = false)
+    @Column(name = "maganize_id")
     private String id;
 
-    @Column(name = "issn", nullable = false, length = 20)
+    @Column(name = "issn")
     private String issn;
 
-    @Column(name = "edition", nullable = false)
+    @Column(name = "edition")
     private Integer edition;
 
-    @Column(name = "volume", nullable = false)
+    @Column(name = "volume")
     private Integer volume;
 
-    @Column(name = "description", length = 200)
+    @Column(name = "description")
     private String description;
 
     public Magazine() {
