@@ -29,8 +29,8 @@ public class Emprestimo {
     private Item item;
 
     @ManyToOne
-    @JoinColumn(name = "ID_USUARIO")
-    private Usuario usuario;
+    @JoinColumn(name = "ID_USER")
+    private User user;
 
     @Column(name = "DTH_EMPRESTIMO", nullable = false)
     private LocalDateTime dataEmprestimo;

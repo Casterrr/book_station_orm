@@ -23,8 +23,8 @@ public class Funcionario {
     private Integer id;
 
     @OneToOne
-    @JoinColumn(name = "ID_USUARIO")
-    private Usuario usuario;
+    @JoinColumn(name = "ID_USER")
+    private User user;
 
     @Column(name = "DSC_CARGO", nullable = false, length = 50)
     private String cargo;

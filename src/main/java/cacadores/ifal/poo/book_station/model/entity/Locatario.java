@@ -20,8 +20,8 @@ public class Locatario {
     private Integer idLocatario;
 
     @OneToOne
-    @JoinColumn(name = "ID_USUARIO")
-    private Usuario usuario;
+    @JoinColumn(name = "ID_USER")
+    private User user;
 
     @Column(name = "ENDERECO_LOCATARIO", nullable = false, length = 255)
     private String enderecoLocatario;
