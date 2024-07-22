@@ -43,7 +43,7 @@ public class PublisherController {
     @Operation(summary = "Get a publisher by ID", description = "Retrieves a publisher by its ID")
     @ApiResponse(responseCode = "200", description = "Publisher found")
     @ApiResponse(responseCode = "404", description = "Publisher not found")
-    public ResponseEntity<PublisherResponseDTO> getPublisherById(@PathVariable String id) {
+    public ResponseEntity<PublisherResponseDTO> getPublisherById(@PathVariable Long id) {
         return new ResponseEntity<>(publisherService.getPublisherById(id), HttpStatus.OK);
     }
 
@@ -58,7 +58,8 @@ public class PublisherController {
     @Operation(summary = "Update a publisher", description = "Updates an existing publisher")
     @ApiResponse(responseCode = "200", description = "Publisher updated successfully")
     @ApiResponse(responseCode = "404", description = "Publisher not found")
-    public ResponseEntity<PublisherResponseDTO> updatePublisher(@PathVariable String id, @RequestBody PublisherUpdateDTO publisherUpdateDTO) {
+    public ResponseEntity<PublisherResponseDTO> updatePublisher(@PathVariable Long id,
+            @RequestBody PublisherUpdateDTO publisherUpdateDTO) {
         return new ResponseEntity<>(publisherService.updatePublisher(id, publisherUpdateDTO), HttpStatus.OK);
     }
 
@@ -66,7 +67,7 @@ public class PublisherController {
     @Operation(summary = "Delete a publisher", description = "Deletes a publisher by its ID")
     @ApiResponse(responseCode = "204", description = "Publisher deleted successfully")
     @ApiResponse(responseCode = "404", description = "Publisher not found")
-    public ResponseEntity<Void> deletePublisher(@PathVariable String id) {
+    public ResponseEntity<Void> deletePublisher(@PathVariable Long id) {
         publisherService.deletePublisher(id);
         return ResponseEntity.noContent().build();
     }

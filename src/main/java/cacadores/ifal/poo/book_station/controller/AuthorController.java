@@ -34,7 +34,7 @@ public class AuthorController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AuthorResponseDTO> getAuthorById(@PathVariable String id) {
+    public ResponseEntity<AuthorResponseDTO> getAuthorById(@PathVariable Long id) {
         return new ResponseEntity<>(authorService.getAuthorById(id), HttpStatus.OK);
     }
 
@@ -44,12 +44,13 @@ public class AuthorController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<AuthorResponseDTO> updateAuthor(@PathVariable String id, @RequestBody AuthorUpdateDTO authorUpdateDTO) {
+    public ResponseEntity<AuthorResponseDTO> updateAuthor(@PathVariable Long id,
+            @RequestBody AuthorUpdateDTO authorUpdateDTO) {
         return new ResponseEntity<>(authorService.updateAuthor(id, authorUpdateDTO), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteAuthor(@PathVariable String id) {
+    public ResponseEntity<Void> deleteAuthor(@PathVariable Long id) {
         authorService.deleteAuthor(id);
         return ResponseEntity.noContent().build();
     }

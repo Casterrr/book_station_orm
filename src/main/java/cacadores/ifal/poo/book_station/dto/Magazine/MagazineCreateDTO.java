@@ -11,6 +11,6 @@ public class MagazineCreateDTO {
     private Integer availableQuantity;
     private Integer pages;
     private String status;
-    private String publisherId;
-    private String genreId;
+    private Long publisherId;
+    private Long genreId;
 }

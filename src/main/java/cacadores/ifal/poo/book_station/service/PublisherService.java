@@ -25,7 +25,8 @@ public class PublisherService {
 
     public PublisherResponseDTO addPublisher(PublisherCreateDTO publisherCreateDTO) {
         if (publisherRepository.existsByName(publisherCreateDTO.getName())) {
-            throw new PublisherAlreadyExistsException("Uma editora com o nome " + publisherCreateDTO.getName() + " já existe.");
+            throw new PublisherAlreadyExistsException(
+                    "Uma editora com o nome " + publisherCreateDTO.getName() + " já existe.");
         }
         Publisher publisher = new Publisher();
         BeanUtils.copyProperties(publisherCreateDTO, publisher);
@@ -33,7 +34,7 @@ public class PublisherService {
         return convertToPublisherResponseDTO(publisher);
     }
 
-    public PublisherResponseDTO getPublisherById(String id) {
+    public PublisherResponseDTO getPublisherById(Long id) {
         Publisher publisher = findPublisherEntityById(id);
         return convertToPublisherResponseDTO(publisher);
     }
@@ -44,18 +45,18 @@ public class PublisherService {
                 .collect(Collectors.toList());
     }
 
-    public PublisherResponseDTO updatePublisher(String id, PublisherUpdateDTO publisherUpdateDTO) {
+    public PublisherResponseDTO updatePublisher(Long id, PublisherUpdateDTO publisherUpdateDTO) {
         Publisher existingPublisher = findPublisherEntityById(id);
         BeanUtils.copyProperties(publisherUpdateDTO, existingPublisher);
         existingPublisher = publisherRepository.save(existingPublisher);
         return convertToPublisherResponseDTO(existingPublisher);
     }
 
-    public void deletePublisher(String id) {
+    public void deletePublisher(Long id) {
         publisherRepository.deleteById(id);
     }
 
-    private Publisher findPublisherEntityById(String id) {
+    private Publisher findPublisherEntityById(Long id) {
         return publisherRepository.findById(id)
                 .orElseThrow(() -> new PublisherNotFoundException("Editora com ID " + id + " não encontrada."));
     }

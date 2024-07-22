@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import cacadores.ifal.poo.book_station.model.entity.Author;
 
 @Repository
-public interface AuthorRepository extends JpaRepository<Author, String> {
+public interface AuthorRepository extends JpaRepository<Author, Long> {
     boolean existsByName(String name);
 }
