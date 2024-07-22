@@ -18,7 +18,7 @@ public class ReservationService {
         return reservationRepository.findAll();
     }
 
-    public Reservation getReservationById(String id) {
+    public Reservation getReservationById(Long id) {
         return reservationRepository.findById(id)
                 .orElseThrow(() -> new ReservationNotFoundException("Reservation not found with id: " + id));
     }
@@ -27,7 +27,7 @@ public class ReservationService {
         return reservationRepository.save(reservation);
     }
 
-    public Reservation updateReservation(String id, Reservation reservationDetails) {
+    public Reservation updateReservation(Long id, Reservation reservationDetails) {
         Reservation reservation = getReservationById(id);
         reservation.setUser(reservationDetails.getUser());
         reservation.setItem(reservationDetails.getItem());
@@ -36,7 +36,7 @@ public class ReservationService {
         return reservationRepository.save(reservation);
     }
 
-    public void deleteReservation(String id) {
+    public void deleteReservation(Long id) {
         Reservation reservation = getReservationById(id);
         reservationRepository.delete(reservation);
     }
