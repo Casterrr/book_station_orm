@@ -27,7 +27,7 @@ public class AuthorService {
                 .collect(Collectors.toList());
     }
 
-    public AuthorResponseDTO getAuthorById(String id) {
+    public AuthorResponseDTO getAuthorById(Long id) {
         Author author = findAuthorEntityById(id);
         return convertToAuthorResponseDTO(author);
     }
@@ -45,7 +45,7 @@ public class AuthorService {
         return convertToAuthorResponseDTO(author);
     }
 
-    public AuthorResponseDTO updateAuthor(String id, AuthorUpdateDTO authorUpdateDTO) {
+    public AuthorResponseDTO updateAuthor(Long id, AuthorUpdateDTO authorUpdateDTO) {
         Author existingAuthor = findAuthorEntityById(id);
         if (authorUpdateDTO.getBirthDate() == null) {
             throw new IllegalArgumentException("A data de nascimento não pode ser nula.");
@@ -55,11 +55,11 @@ public class AuthorService {
         return convertToAuthorResponseDTO(existingAuthor);
     }
 
-    public void deleteAuthor(String id) {
+    public void deleteAuthor(Long id) {
         authorRepository.deleteById(id);
     }
 
-    private Author findAuthorEntityById(String id) {
+    private Author findAuthorEntityById(Long id) {
         return authorRepository.findById(id)
                 .orElseThrow(() -> new AuthorNotFoundException("Autor com ID " + id + " não encontrado."));
     }

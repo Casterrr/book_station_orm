@@ -12,7 +12,7 @@ public class BookUpdateDTO {
     private Integer availableQuantity;
     private Integer pages;
     private String status;
-    private String publisherId;
-    private String authorId;
-    private String genreId;
+    private Long publisherId;
+    private Long authorId;
+    private Long genreId;
 }

@@ -7,10 +7,10 @@ import lombok.Data;
 
 @Data
 public class AuthorResponseDTO {
-    private String id;
+    private Long id;
     private String name;
     private String nationality;
     private String biography;
-    private LocalDate birthDate;  // Adicionado campo de data de nascimento
+    private LocalDate birthDate; // Adicionado campo de data de nascimento
     private LocalDateTime creationDate;
 }
