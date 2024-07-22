@@ -8,5 +8,6 @@ public class UserResponseDTO {
     private String id;
     private String name;
     private String email;
-    private LocalDateTime registrationTime;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 }
