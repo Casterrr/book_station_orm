@@ -1,13 +1,20 @@
 package cacadores.ifal.poo.book_station.model.entity;
 
-import jakarta.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "TB_AUTHOR")
@@ -31,6 +38,7 @@ public class Author {
     @Column(name = "biography", length = 255)
     private String biography;
 
-    @Column(name = "registration_date", nullable = false)
+    @Column(name = "registration_date")
+    @CreationTimestamp
     private LocalDateTime registrationDate;
 }

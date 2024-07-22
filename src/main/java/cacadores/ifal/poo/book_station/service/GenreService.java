@@ -1,12 +1,19 @@
 package cacadores.ifal.poo.book_station.service;
 
-import cacadores.ifal.poo.book_station.model.entity.Genre;
-import cacadores.ifal.poo.book_station.repository.GenreRepository;
-import cacadores.ifal.poo.book_station.exception.GenreNotFoundException;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import cacadores.ifal.poo.book_station.dto.Genre.GenreCreateDTO;
+import cacadores.ifal.poo.book_station.dto.Genre.GenreResponseDTO;
+import cacadores.ifal.poo.book_station.dto.Genre.GenreUpdateDTO;
+import cacadores.ifal.poo.book_station.exception.GenreAlreadyExistsException;
+import cacadores.ifal.poo.book_station.exception.GenreNotFoundException;
+import cacadores.ifal.poo.book_station.model.entity.Genre;
+import cacadores.ifal.poo.book_station.repository.GenreRepository;
 
 @Service
 public class GenreService {
@@ -14,28 +21,47 @@ public class GenreService {
     @Autowired
     private GenreRepository genreRepository;
 
-    public List<Genre> getAllGenres() {
-        return genreRepository.findAll();
+    public GenreResponseDTO addGenre(GenreCreateDTO genreCreateDTO) {
+        if (genreRepository.existsByName(genreCreateDTO.getName())) {
+            throw new GenreAlreadyExistsException("Um gênero com o nome " + genreCreateDTO.getName() + " já existe.");
+        }
+        Genre genre = new Genre();
+        BeanUtils.copyProperties(genreCreateDTO, genre);
+        genre = genreRepository.save(genre);
+        return convertToGenreResponseDTO(genre);
     }
 
-    public Genre getGenreById(String id) {
-        return genreRepository.findById(id)
-                .orElseThrow(() -> new GenreNotFoundException("Genre not found with id: " + id));
+    public GenreResponseDTO updateGenre(String id, GenreUpdateDTO genreUpdateDTO) {
+        Genre existingGenre = findGenreEntityById(id);
+        BeanUtils.copyProperties(genreUpdateDTO, existingGenre);
+        existingGenre = genreRepository.save(existingGenre);
+        return convertToGenreResponseDTO(existingGenre);
     }
 
-    public Genre createGenre(Genre genre) {
-        return genreRepository.save(genre);
+    public GenreResponseDTO getGenreById(String id) {
+        Genre genre = findGenreEntityById(id);
+        return convertToGenreResponseDTO(genre);
     }
 
-    public Genre updateGenre(String id, Genre genreDetails) {
-        Genre genre = getGenreById(id);
-        genre.setName(genreDetails.getName());
-        genre.setCreationDate(genreDetails.getCreationDate());
-        return genreRepository.save(genre);
+    public List<GenreResponseDTO> getAllGenres() {
+        return genreRepository.findAll().stream()
+                .map(this::convertToGenreResponseDTO)
+                .collect(Collectors.toList());
     }
 
     public void deleteGenre(String id) {
-        Genre genre = getGenreById(id);
-        genreRepository.delete(genre);
+        genreRepository.deleteById(id);
+    }
+
+    private Genre findGenreEntityById(String id) {
+        return genreRepository.findById(id)
+                .orElseThrow(() -> new GenreNotFoundException("Gênero com ID " + id + " não encontrado."));
+    }
+
+    private GenreResponseDTO convertToGenreResponseDTO(Genre genre) {
+        GenreResponseDTO dto = new GenreResponseDTO();
+        BeanUtils.copyProperties(genre, dto);
+        dto.setCreationDate(genre.getCreationDate());
+        return dto;
     }
 }

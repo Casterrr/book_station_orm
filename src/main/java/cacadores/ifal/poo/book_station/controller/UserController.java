@@ -1,6 +1,7 @@
 package cacadores.ifal.poo.book_station.controller;
 
-import cacadores.ifal.poo.book_station.dto.UserCreateDTO;
+import cacadores.ifal.poo.book_station.dto.User.UserCreateDTO;
+import cacadores.ifal.poo.book_station.dto.User.UserUpdateDTO;
 import cacadores.ifal.poo.book_station.model.entity.User;
 import cacadores.ifal.poo.book_station.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -50,10 +51,10 @@ public class UserController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Update a user", description = "Updates an existing user")
-    public ResponseEntity<User> updateUser(@PathVariable String id, @RequestBody User user) {
-        user.setId(id);
-        User updatedUser = userService.updateUser(user);
-        return ResponseEntity.ok(updatedUser);
+    public ResponseEntity<User> updateUser(@PathVariable String id, @RequestBody UserUpdateDTO userUpdateDTO) {
+        return userService.updateUser(id, userUpdateDTO)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")

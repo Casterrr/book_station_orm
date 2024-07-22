@@ -1,13 +1,16 @@
 package cacadores.ifal.poo.book_station.model.entity;
 
-import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.NoArgsConstructor;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "TB_EMPLOYEE")
@@ -36,5 +39,12 @@ public class Employee extends User {
         this.salary = salary;
         this.workCardNumber = workCardNumber;
         this.hireDate = hireDate;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        if (hireDate == null) {
+            hireDate = LocalDate.now();
+        }
     }
 }
