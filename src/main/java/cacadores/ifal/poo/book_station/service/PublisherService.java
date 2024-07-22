@@ -3,7 +3,7 @@ package cacadores.ifal.poo.book_station.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import cacadores.ifal.poo.book_station.exception.publisher.PublisherNotFoundException;
+import cacadores.ifal.poo.book_station.exception.PublisherNotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 

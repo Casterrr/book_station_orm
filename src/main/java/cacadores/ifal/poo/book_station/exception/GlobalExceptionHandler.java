@@ -29,15 +29,15 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
     }
 
-    // @ExceptionHandler(GenreAlreadyExistsException.class)
-    // public ResponseEntity<String> handleGenreAlreadyExistsException(GenreAlreadyExistsException ex) {
-    //     return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
-    // }
+    @ExceptionHandler(GenreAlreadyExistsException.class)
+    public ResponseEntity<String> handleGenreAlreadyExistsException(GenreAlreadyExistsException ex) {
+       return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+    }
 
-    // @ExceptionHandler(GenreNotFoundException.class)
-    // public ResponseEntity<String> handleGenreNotFoundException(GenreNotFoundException ex) {
-    //     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
-    // }
+    @ExceptionHandler(GenreNotFoundException.class)
+    public ResponseEntity<String> handleGenreNotFoundException(GenreNotFoundException ex) {
+       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
 
     @ExceptionHandler(AuthorAlreadyExistsException.class)
     public ResponseEntity<String> handleAuthorAlreadyExistsException(AuthorAlreadyExistsException ex) {
@@ -59,10 +59,10 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
     }
 
-    // @ExceptionHandler(PublisherNotFoundException.class)
-    // public ResponseEntity<String> handlePublisherNotFoundException(PublisherNotFoundException ex) {
-    //     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
-    // }
+    @ExceptionHandler(PublisherNotFoundException.class)
+    public ResponseEntity<String> handlePublisherNotFoundException(PublisherNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
 
 
     @ExceptionHandler(EmployeeNotFoundException.class)
