@@ -20,7 +20,7 @@ public class LoanService {
         return loanRepository.save(loan);
     }
 
-    public Loan getLoanById(String id) {
+    public Loan getLoanById(Long id) {
         return loanRepository.findById(id)
                 .orElseThrow(() -> new LoanNotFoundException("Loan not found with id: " + id));
     }
@@ -36,7 +36,7 @@ public class LoanService {
         return loanRepository.save(loan);
     }
 
-    public void deleteLoan(String id) {
+    public void deleteLoan(Long id) {
         if (!loanRepository.existsById(id)) {
             throw new LoanNotFoundException("Loan not found with id: " + id);
         }

@@ -27,7 +27,7 @@ public class LoanController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Loan> getLoanById(@PathVariable String id) {
+    public ResponseEntity<Loan> getLoanById(@PathVariable Long id) {
         return ResponseEntity.ok(loanService.getLoanById(id));
     }
 
@@ -37,13 +37,13 @@ public class LoanController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Loan> updateLoan(@PathVariable String id, @RequestBody Loan loan) {
+    public ResponseEntity<Loan> updateLoan(@PathVariable Long id, @RequestBody Loan loan) {
         loan.setId(id);
         return ResponseEntity.ok(loanService.updateLoan(loan));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteLoan(@PathVariable String id) {
+    public ResponseEntity<Void> deleteLoan(@PathVariable Long id) {
         loanService.deleteLoan(id);
         return ResponseEntity.noContent().build();
     }
