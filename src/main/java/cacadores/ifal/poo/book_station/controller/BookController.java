@@ -1,16 +1,24 @@
 package cacadores.ifal.poo.book_station.controller;
 
-import cacadores.ifal.poo.book_station.exception.BookNotFoundException;
-import cacadores.ifal.poo.book_station.model.entity.items.Book;
-import cacadores.ifal.poo.book_station.service.ItemService;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import cacadores.ifal.poo.book_station.dto.Book.BookCreateDTO;
+import cacadores.ifal.poo.book_station.dto.Book.BookResponseDTO;
+import cacadores.ifal.poo.book_station.dto.Book.BookUpdateDTO;
+import cacadores.ifal.poo.book_station.service.ItemService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/api/book")
@@ -20,36 +28,28 @@ public class BookController {
     private ItemService itemService;
 
     @PostMapping()
-    public ResponseEntity<Book> createBook(@RequestBody Book book) {
-        return new ResponseEntity<>(itemService.addBook(book), HttpStatus.CREATED);
+    public ResponseEntity<BookResponseDTO> createBook(@RequestBody BookCreateDTO bookCreateDTO) {
+        return new ResponseEntity<>(itemService.addBook(bookCreateDTO), HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Book> getBookById(@PathVariable String id) {
+    public ResponseEntity<BookResponseDTO> getBookById(@PathVariable String id) {
         return new ResponseEntity<>(itemService.getBookById(id), HttpStatus.OK);
     }
 
     @GetMapping()
-    public ResponseEntity<List<Book>> getAllBooks() {
-        return new ResponseEntity<List<Book>>(itemService.getBooks(), HttpStatus.OK);
+    public ResponseEntity<List<BookResponseDTO>> getAllBooks() {
+        return new ResponseEntity<>(itemService.getBooks(), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Book> updateBook(@PathVariable String id, @RequestBody Book book) {
-        // Usamos o método updateBook do ItemService
-        return new ResponseEntity<>(itemService.updateBook(id, book), HttpStatus.OK);
+    public ResponseEntity<BookResponseDTO> updateBook(@PathVariable String id, @RequestBody BookUpdateDTO bookUpdateDTO) {
+        return new ResponseEntity<>(itemService.updateBook(id, bookUpdateDTO), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Book> deleteBook(@PathVariable String id) {
-        final Book book = itemService.getBookById(id);
-
-        if (book == null) {
-            throw new BookNotFoundException("Book not found");
-        }
-
+    public ResponseEntity<Void> deleteBook(@PathVariable String id) {
         itemService.deleteBook(id);
-
-        return new ResponseEntity<>(book, HttpStatus.OK);
+        return ResponseEntity.noContent().build();
     }
 }

@@ -1,16 +1,24 @@
 package cacadores.ifal.poo.book_station.controller;
 
-import cacadores.ifal.poo.book_station.exception.MagazineNotFoundException;
-import cacadores.ifal.poo.book_station.model.entity.items.Magazine;
-import cacadores.ifal.poo.book_station.service.ItemService;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import cacadores.ifal.poo.book_station.dto.Magazine.MagazineCreateDTO;
+import cacadores.ifal.poo.book_station.dto.Magazine.MagazineResponseDTO;
+import cacadores.ifal.poo.book_station.dto.Magazine.MagazineUpdateDTO;
+import cacadores.ifal.poo.book_station.service.ItemService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/api/magazine")
@@ -20,35 +28,30 @@ public class MagazineController {
     private ItemService itemService;
 
     @PostMapping()
-    public ResponseEntity<Magazine> createMagazine(@RequestBody Magazine magazine) {
-        return new ResponseEntity<>(itemService.addMagazine(magazine), HttpStatus.CREATED);
+    public ResponseEntity<MagazineResponseDTO> createMagazine(@RequestBody MagazineCreateDTO magazineCreateDTO) {
+        return new ResponseEntity<>(itemService.addMagazine(magazineCreateDTO), HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Magazine> getMagazineById(@PathVariable String id) {
+    public ResponseEntity<MagazineResponseDTO> getMagazineById(@PathVariable String id) {
         return new ResponseEntity<>(itemService.getMagazineById(id), HttpStatus.OK);
     }
 
     @GetMapping()
-    public ResponseEntity<List<Magazine>> getAllMagazines() {
-        return new ResponseEntity<List<Magazine>>(itemService.getMagazines(), HttpStatus.OK);
+    public ResponseEntity<List<MagazineResponseDTO>> getAllMagazines() {
+        return new ResponseEntity<>(itemService.getMagazines(), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Magazine> updateMagazine(@PathVariable String id, @RequestBody Magazine magazine) {
-        return new ResponseEntity<>(itemService.updateMagazine(id, magazine), HttpStatus.OK);
+    public ResponseEntity<MagazineResponseDTO> updateMagazine(@PathVariable String id, @RequestBody MagazineUpdateDTO magazineUpdateDTO) {
+        return new ResponseEntity<>(itemService.updateMagazine(id, magazineUpdateDTO), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Magazine> deleteMagazine(@PathVariable String id) {
-        final Magazine magazine = itemService.getMagazineById(id);
-
-        if (magazine == null) {
-            throw new MagazineNotFoundException("Magazine not found");
-        }
-
+    public ResponseEntity<Void> deleteMagazine(@PathVariable String id) {
         itemService.deleteMagazine(id);
-
-        return new ResponseEntity<>(magazine, HttpStatus.OK);
+        return ResponseEntity.noContent().build();
     }
+
+    
 }
