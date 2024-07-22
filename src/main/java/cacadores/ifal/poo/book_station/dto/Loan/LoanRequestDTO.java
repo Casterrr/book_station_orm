@@ -8,5 +8,7 @@ import java.time.LocalDate;
 public class LoanRequestDTO {
     private String itemId;
     private String userId;
-    private LocalDate expectedReturnDate;
+    private LocalDate loanDate;
+    private LocalDate returnDate;
+
 }

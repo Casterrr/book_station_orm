@@ -12,8 +12,7 @@ public class LoanResponseDTO {
     private String itemId;
     private String userId;
     private LocalDateTime loanDate;
-    private LocalDate expectedReturnDate;
-    private LocalDate actualReturnDate;
+    private LocalDate returnDate;
     private BigDecimal fineAmount;
     private LocalDateTime fineDate;
 }
