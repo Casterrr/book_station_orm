@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import cacadores.ifal.poo.book_station.dto.Employee.EmployeeCreateDTO;
@@ -23,6 +24,8 @@ public class EmployeeService {
 
     @Autowired
     private EmployeeRepository employeeRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public List<EmployeeResponseDTO> getAllEmployees() {
         return employeeRepository.findAll().stream()
@@ -42,7 +45,7 @@ public class EmployeeService {
         if (employeeRepository.existsByEmail(employeeCreateDTO.getEmail())) {
             throw new EmployeeAlreadyExistsException("Funcionário com o email " + employeeCreateDTO.getEmail() + " já existe");
         }
-
+        employeeCreateDTO.setPassword(passwordEncoder.encode(employeeCreateDTO.getPassword()));
         Employee employee = new Employee();
         BeanUtils.copyProperties(employeeCreateDTO, employee);
         
