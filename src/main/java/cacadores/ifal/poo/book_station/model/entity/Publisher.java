@@ -8,6 +8,8 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 @Entity
 @Table(name = "TB_PUBLISHER")
 @Getter
@@ -17,12 +19,15 @@ import java.time.LocalDateTime;
 public class Publisher {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "ID", nullable = false)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "publisher_id", nullable = false)
+    private Long id;
 
     @Column(name = "NAME", nullable = false, length = 100)
     private String name;
+
+    @Column(name = "EMAIL", nullable = false, length = 100)
+    private String email;
 
     @Column(name = "ADDRESS", nullable = false, length = 255)
     private String address;
@@ -30,6 +35,7 @@ public class Publisher {
     @Column(name = "PHONE", nullable = false, length = 255)
     private String phone;
 
-    @Column(name = "REGISTRATION_DATE", nullable = false)
+    @CreationTimestamp
+    @Column(name = "REGISTRATION_DATE")
     private LocalDateTime registrationDate;
 }
