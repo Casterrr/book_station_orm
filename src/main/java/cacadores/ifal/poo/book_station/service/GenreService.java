@@ -31,14 +31,14 @@ public class GenreService {
         return convertToGenreResponseDTO(genre);
     }
 
-    public GenreResponseDTO updateGenre(String id, GenreUpdateDTO genreUpdateDTO) {
+    public GenreResponseDTO updateGenre(Long id, GenreUpdateDTO genreUpdateDTO) {
         Genre existingGenre = findGenreEntityById(id);
         BeanUtils.copyProperties(genreUpdateDTO, existingGenre);
         existingGenre = genreRepository.save(existingGenre);
         return convertToGenreResponseDTO(existingGenre);
     }
 
-    public GenreResponseDTO getGenreById(String id) {
+    public GenreResponseDTO getGenreById(Long id) {
         Genre genre = findGenreEntityById(id);
         return convertToGenreResponseDTO(genre);
     }
@@ -49,11 +49,11 @@ public class GenreService {
                 .collect(Collectors.toList());
     }
 
-    public void deleteGenre(String id) {
+    public void deleteGenre(Long id) {
         genreRepository.deleteById(id);
     }
 
-    private Genre findGenreEntityById(String id) {
+    private Genre findGenreEntityById(Long id) {
         return genreRepository.findById(id)
                 .orElseThrow(() -> new GenreNotFoundException("Gênero com ID " + id + " não encontrado."));
     }
