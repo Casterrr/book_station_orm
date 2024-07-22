@@ -9,6 +9,8 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 @Entity
 @Table(name = "TB_RESERVATION")
 @Getter
@@ -18,9 +20,9 @@ import java.time.LocalDateTime;
 public class Reservation {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_RESERVATION", nullable = false)
-    private String id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "ID_USER")
@@ -34,5 +36,6 @@ public class Reservation {
     private Boolean isFulfilled;
 
     @Column(name = "RESERVATION_DATE", nullable = false)
+    @CreationTimestamp
     private LocalDateTime reservationDate;
 }

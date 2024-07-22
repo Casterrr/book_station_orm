@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import cacadores.ifal.poo.book_station.model.entity.Publisher;
 
 @Repository
-public interface PublisherRepository extends JpaRepository<Publisher, String> {
+public interface PublisherRepository extends JpaRepository<Publisher, Long> {
   boolean existsByName(String name);
 }

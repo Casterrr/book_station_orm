@@ -32,9 +32,10 @@ public class Employee extends User {
     private LocalDate hireDate;
 
     // Constructor
-    public Employee(String id, String name, String email, String password, LocalDateTime registrationTime,
+    public Employee(String id, String name, String email, String password, LocalDateTime createdAt,
+            LocalDateTime updatedAt,
             String position, BigDecimal salary, String workCardNumber, LocalDate hireDate) {
-        super(id, name, email, password, registrationTime);
+        super(id, name, email, password, createdAt, updatedAt);
         this.position = position;
         this.salary = salary;
         this.workCardNumber = workCardNumber;

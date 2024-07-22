@@ -1,5 +1,7 @@
 package cacadores.ifal.poo.book_station.controller;
 
+import cacadores.ifal.poo.book_station.dto.Loan.LoanRequestDTO;
+import cacadores.ifal.poo.book_station.dto.Loan.LoanResponseDTO;
 import cacadores.ifal.poo.book_station.model.entity.Loan;
 import cacadores.ifal.poo.book_station.service.LoanService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -22,28 +24,28 @@ public class LoanController {
     }
 
     @PostMapping
-    public ResponseEntity<Loan> createLoan(@RequestBody Loan loan) {
-        return new ResponseEntity<>(loanService.createLoan(loan), HttpStatus.CREATED);
+    public ResponseEntity<LoanResponseDTO> createLoan(@RequestBody LoanRequestDTO loanRequestDTO) {
+        return new ResponseEntity<>(loanService.createLoan(loanRequestDTO), HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Loan> getLoanById(@PathVariable String id) {
+    public ResponseEntity<LoanResponseDTO> getLoanById(@PathVariable Long id) {
         return ResponseEntity.ok(loanService.getLoanById(id));
     }
 
     @GetMapping
-    public ResponseEntity<List<Loan>> getAllLoans() {
+    public ResponseEntity<List<LoanResponseDTO>> getAllLoans() {
         return ResponseEntity.ok(loanService.getAllLoans());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Loan> updateLoan(@PathVariable String id, @RequestBody Loan loan) {
-        loan.setId(id);
-        return ResponseEntity.ok(loanService.updateLoan(loan));
+    public ResponseEntity<LoanResponseDTO> updateLoan(@PathVariable Long id,
+            @RequestBody LoanRequestDTO loanRequestDTO) {
+        return new ResponseEntity<>(loanService.updateLoan(id, loanRequestDTO), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteLoan(@PathVariable String id) {
+    public ResponseEntity<Void> deleteLoan(@PathVariable Long id) {
         loanService.deleteLoan(id);
         return ResponseEntity.noContent().build();
     }

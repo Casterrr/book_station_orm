@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -28,15 +29,15 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
     }
 
-    @ExceptionHandler(GenreAlreadyExistsException.class)
-    public ResponseEntity<String> handleGenreAlreadyExistsException(GenreAlreadyExistsException ex) {
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
-    }
+    // @ExceptionHandler(GenreAlreadyExistsException.class)
+    // public ResponseEntity<String> handleGenreAlreadyExistsException(GenreAlreadyExistsException ex) {
+    //     return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+    // }
 
-    @ExceptionHandler(GenreNotFoundException.class)
-    public ResponseEntity<String> handleGenreNotFoundException(GenreNotFoundException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
-    }
+    // @ExceptionHandler(GenreNotFoundException.class)
+    // public ResponseEntity<String> handleGenreNotFoundException(GenreNotFoundException ex) {
+    //     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    // }
 
     @ExceptionHandler(AuthorAlreadyExistsException.class)
     public ResponseEntity<String> handleAuthorAlreadyExistsException(AuthorAlreadyExistsException ex) {
@@ -58,10 +59,10 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
     }
 
-    @ExceptionHandler(PublisherNotFoundException.class)
-    public ResponseEntity<String> handlePublisherNotFoundException(PublisherNotFoundException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
-    }
+    // @ExceptionHandler(PublisherNotFoundException.class)
+    // public ResponseEntity<String> handlePublisherNotFoundException(PublisherNotFoundException ex) {
+    //     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    // }
 
 
     @ExceptionHandler(EmployeeNotFoundException.class)
@@ -95,10 +96,16 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 
+    @ExceptionHandler(UnauthorizedAccessException.class)
+    @ResponseBody
+    public ResponseEntity<String> handleUnauthorizedAccessException(UnauthorizedAccessException ex) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ex.getMessage());
+    }
+
     // Tratamento genérico para outras exceções não tratadas
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleGenericException(Exception ex) {
-        String errorMessage = "Intern server error: " + ex.getMessage();
+        String errorMessage = "Oooopa!! Ocorreu um erro interno no servidor: " + ex.getMessage();
         return new ResponseEntity<>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
     }
     

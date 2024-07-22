@@ -1,12 +1,9 @@
 package cacadores.ifal.poo.book_station.service;
 
-<<<<<<< HEAD
-import cacadores.ifal.poo.book_station.exception.publisher.PublisherListEmptyException;
-import cacadores.ifal.poo.book_station.exception.publisher.PublisherNotFoundException;
-=======
 import java.util.List;
 import java.util.stream.Collectors;
 
+import cacadores.ifal.poo.book_station.exception.publisher.PublisherNotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -14,47 +11,22 @@ import cacadores.ifal.poo.book_station.dto.Publisher.PublisherCreateDTO;
 import cacadores.ifal.poo.book_station.dto.Publisher.PublisherResponseDTO;
 import cacadores.ifal.poo.book_station.dto.Publisher.PublisherUpdateDTO;
 import cacadores.ifal.poo.book_station.exception.PublisherAlreadyExistsException;
-import cacadores.ifal.poo.book_station.exception.PublisherNotFoundException;
->>>>>>> main
 import cacadores.ifal.poo.book_station.model.entity.Publisher;
 import cacadores.ifal.poo.book_station.repository.PublisherRepository;
 
+
 @Service
 public class PublisherService {
-
     private final PublisherRepository publisherRepository;
 
     public PublisherService(PublisherRepository publisherRepository) {
         this.publisherRepository = publisherRepository;
     }
 
-<<<<<<< HEAD
-    public Publisher createPublisher(Publisher publisher) {
-        return publisherRepository.save(publisher);
-    }
-
-    public Publisher getPublisherById(String id) {
-        return publisherRepository.findById(id)
-                .orElseThrow(() -> new PublisherNotFoundException("Publisher not found with id: " + id));
-    }
-
-    public List<Publisher> getAllPublishers() {
-        // return publisherRepository.findAll();
-        List<Publisher> publishers = publisherRepository.findAll();
-        if (publishers.isEmpty()) {
-            throw new PublisherListEmptyException("There's any publisher register");
-        }
-        return publishers;
-    }
-
-    public Publisher updatePublisher(Publisher publisher) {
-        if (!publisherRepository.existsById(publisher.getId())) {
-            throw new PublisherNotFoundException("Publisher not found with id: " + publisher.getId());
-=======
     public PublisherResponseDTO addPublisher(PublisherCreateDTO publisherCreateDTO) {
         if (publisherRepository.existsByName(publisherCreateDTO.getName())) {
-            throw new PublisherAlreadyExistsException("Uma editora com o nome " + publisherCreateDTO.getName() + " já existe.");
->>>>>>> main
+            throw new PublisherAlreadyExistsException(
+                    "Uma editora com o nome " + publisherCreateDTO.getName() + " já existe.");
         }
         Publisher publisher = new Publisher();
         BeanUtils.copyProperties(publisherCreateDTO, publisher);
@@ -62,7 +34,7 @@ public class PublisherService {
         return convertToPublisherResponseDTO(publisher);
     }
 
-    public PublisherResponseDTO getPublisherById(String id) {
+    public PublisherResponseDTO getPublisherById(Long id) {
         Publisher publisher = findPublisherEntityById(id);
         return convertToPublisherResponseDTO(publisher);
     }
@@ -73,18 +45,18 @@ public class PublisherService {
                 .collect(Collectors.toList());
     }
 
-    public PublisherResponseDTO updatePublisher(String id, PublisherUpdateDTO publisherUpdateDTO) {
+    public PublisherResponseDTO updatePublisher(Long id, PublisherUpdateDTO publisherUpdateDTO) {
         Publisher existingPublisher = findPublisherEntityById(id);
         BeanUtils.copyProperties(publisherUpdateDTO, existingPublisher);
         existingPublisher = publisherRepository.save(existingPublisher);
         return convertToPublisherResponseDTO(existingPublisher);
     }
 
-    public void deletePublisher(String id) {
+    public void deletePublisher(Long id) {
         publisherRepository.deleteById(id);
     }
 
-    private Publisher findPublisherEntityById(String id) {
+    private Publisher findPublisherEntityById(Long id) {
         return publisherRepository.findById(id)
                 .orElseThrow(() -> new PublisherNotFoundException("Editora com ID " + id + " não encontrada."));
     }

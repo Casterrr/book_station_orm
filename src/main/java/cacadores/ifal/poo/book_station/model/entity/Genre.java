@@ -24,9 +24,9 @@ import lombok.Setter;
 public class Genre {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", nullable = false)
-    private String id;
+    private Long id;
 
     @Column(name = "NAME", nullable = false, length = 20)
     private String name;

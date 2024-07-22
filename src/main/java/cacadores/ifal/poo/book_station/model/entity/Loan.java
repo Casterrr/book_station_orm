@@ -20,9 +20,9 @@ import java.time.LocalDateTime;
 public class Loan {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id", nullable = false)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "loan_id", nullable = false)
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "id_item")

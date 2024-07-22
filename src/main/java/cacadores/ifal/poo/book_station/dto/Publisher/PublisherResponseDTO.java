@@ -6,10 +6,10 @@ import lombok.Data;
 
 @Data
 public class PublisherResponseDTO {
-    private String id;
+    private Long id;
     private String name;
     private String address;
-    private String phoneNumber;
+    private String phone;
     private String email;
-    private LocalDateTime creationDate;
+    private LocalDateTime registrationDate;
 }
