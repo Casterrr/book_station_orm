@@ -1,6 +1,7 @@
 package cacadores.ifal.poo.book_station.service;
 
-import cacadores.ifal.poo.book_station.exception.PublisherNotFoundException;
+import cacadores.ifal.poo.book_station.exception.publisher.PublisherListEmptyException;
+import cacadores.ifal.poo.book_station.exception.publisher.PublisherNotFoundException;
 import cacadores.ifal.poo.book_station.model.entity.Publisher;
 import cacadores.ifal.poo.book_station.repository.PublisherRepository;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,12 @@ public class PublisherService {
     }
 
     public List<Publisher> getAllPublishers() {
-        return publisherRepository.findAll();
+        // return publisherRepository.findAll();
+        List<Publisher> publishers = publisherRepository.findAll();
+        if (publishers.isEmpty()) {
+            throw new PublisherListEmptyException("There's any publisher register");
+        }
+        return publishers;
     }
 
     public Publisher updatePublisher(Publisher publisher) {

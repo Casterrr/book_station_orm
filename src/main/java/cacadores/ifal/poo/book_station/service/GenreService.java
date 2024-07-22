@@ -1,9 +1,10 @@
 package cacadores.ifal.poo.book_station.service;
 
-import cacadores.ifal.poo.book_station.exception.GenreAlreadyExistsException;
+import cacadores.ifal.poo.book_station.exception.genre.GenreAlreadyExistsException;
+import cacadores.ifal.poo.book_station.exception.genre.GenreNotFoundException;
+import cacadores.ifal.poo.book_station.exception.publisher.PublisherNotFoundException;
 import cacadores.ifal.poo.book_station.model.entity.Genre;
 import cacadores.ifal.poo.book_station.repository.GenreRepository;
-import cacadores.ifal.poo.book_station.exception.GenreNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
