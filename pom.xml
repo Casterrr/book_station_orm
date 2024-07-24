@@ -136,7 +136,7 @@
         </dependencies>
         <configuration>
           <driver>org.postgresql.Driver</driver>
-          <url>jdbc:postgresql://localhost:5432/postgres</url>
+          <url>jdbc:postgresql://localhost:5433/postgres</url>
           <username>admin</username>
           <password>admin</password>
           <autocommit>true</autocommit>
