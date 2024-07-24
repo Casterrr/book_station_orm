@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import cacadores.ifal.poo.book_station.dto.Tenant.TenantCreateDTO;
@@ -22,6 +23,8 @@ public class TenantService {
 
     @Autowired
     private TenantRepository tenantRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public TenantResponseDTO createTenant(TenantCreateDTO tenantCreateDTO) {
         validateTenantCreateDTO(tenantCreateDTO);
@@ -33,6 +36,7 @@ public class TenantService {
             throw new TenantAlreadyExistsException("Um locatário com o CPF " + tenantCreateDTO.getCpf() + " já existe.");
         }
         Tenant tenant = new Tenant();
+        tenantCreateDTO.setPassword(passwordEncoder.encode(tenantCreateDTO.getPassword()));
         BeanUtils.copyProperties(tenantCreateDTO, tenant);
         tenant = tenantRepository.save(tenant);
         return convertToTenantResponseDTO(tenant);

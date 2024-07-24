@@ -3,6 +3,7 @@ package cacadores.ifal.poo.book_station.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import cacadores.ifal.poo.book_station.exception.GenreNotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +12,6 @@ import cacadores.ifal.poo.book_station.dto.Genre.GenreCreateDTO;
 import cacadores.ifal.poo.book_station.dto.Genre.GenreResponseDTO;
 import cacadores.ifal.poo.book_station.dto.Genre.GenreUpdateDTO;
 import cacadores.ifal.poo.book_station.exception.GenreAlreadyExistsException;
-import cacadores.ifal.poo.book_station.exception.GenreNotFoundException;
 import cacadores.ifal.poo.book_station.model.entity.Genre;
 import cacadores.ifal.poo.book_station.repository.GenreRepository;
 
@@ -22,7 +22,7 @@ public class GenreService {
     private GenreRepository genreRepository;
 
     public GenreResponseDTO addGenre(GenreCreateDTO genreCreateDTO) {
-        if (genreRepository.existsByName(genreCreateDTO.getName())) {
+        if (genreRepository.existsByNameIgnoreCase(genreCreateDTO.getName())) {
             throw new GenreAlreadyExistsException("Um gênero com o nome " + genreCreateDTO.getName() + " já existe.");
         }
         Genre genre = new Genre();

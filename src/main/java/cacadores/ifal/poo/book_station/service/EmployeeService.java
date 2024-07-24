@@ -5,8 +5,10 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import cacadores.ifal.poo.book_station.exception.WorkCardNumberException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import cacadores.ifal.poo.book_station.dto.Employee.EmployeeCreateDTO;
@@ -23,6 +25,8 @@ public class EmployeeService {
 
     @Autowired
     private EmployeeRepository employeeRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public List<EmployeeResponseDTO> getAllEmployees() {
         return employeeRepository.findAll().stream()
@@ -43,6 +47,10 @@ public class EmployeeService {
             throw new EmployeeAlreadyExistsException("Funcionário com o email " + employeeCreateDTO.getEmail() + " já existe");
         }
 
+        if (employeeRepository.existsByWorkCardNumber(employeeCreateDTO.getWorkCardNumber())){
+            throw new WorkCardNumberException("Número de empregado " + employeeCreateDTO.getWorkCardNumber() + " já cadastrado");
+        }
+        employeeCreateDTO.setPassword(passwordEncoder.encode(employeeCreateDTO.getPassword()));
         Employee employee = new Employee();
         BeanUtils.copyProperties(employeeCreateDTO, employee);
         

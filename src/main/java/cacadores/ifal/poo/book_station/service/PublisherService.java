@@ -3,6 +3,7 @@ package cacadores.ifal.poo.book_station.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import cacadores.ifal.poo.book_station.exception.PublisherNotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -10,13 +11,12 @@ import cacadores.ifal.poo.book_station.dto.Publisher.PublisherCreateDTO;
 import cacadores.ifal.poo.book_station.dto.Publisher.PublisherResponseDTO;
 import cacadores.ifal.poo.book_station.dto.Publisher.PublisherUpdateDTO;
 import cacadores.ifal.poo.book_station.exception.PublisherAlreadyExistsException;
-import cacadores.ifal.poo.book_station.exception.PublisherNotFoundException;
 import cacadores.ifal.poo.book_station.model.entity.Publisher;
 import cacadores.ifal.poo.book_station.repository.PublisherRepository;
 
+
 @Service
 public class PublisherService {
-
     private final PublisherRepository publisherRepository;
 
     public PublisherService(PublisherRepository publisherRepository) {

@@ -31,12 +31,12 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(GenreAlreadyExistsException.class)
     public ResponseEntity<String> handleGenreAlreadyExistsException(GenreAlreadyExistsException ex) {
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+       return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
     }
 
     @ExceptionHandler(GenreNotFoundException.class)
     public ResponseEntity<String> handleGenreNotFoundException(GenreNotFoundException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
 
     @ExceptionHandler(AuthorAlreadyExistsException.class)
@@ -78,7 +78,12 @@ public class GlobalExceptionHandler {
     // Pode ser usado para validações específicas de Employee, como workCardNumber nulo
     @ExceptionHandler(EmployeeValidationException.class)
     public ResponseEntity<String> handleEmployeeValidationException(EmployeeValidationException ex) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(WorkCardNumberException.class)
+    public ResponseEntity<String> handleWorkCardNumberException(WorkCardNumberException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
     }
 
     @ExceptionHandler(TenantAlreadyExistsException.class)
@@ -100,6 +105,11 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public ResponseEntity<String> handleUnauthorizedAccessException(UnauthorizedAccessException ex) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(EmailAlreadyExistsException.class)
+    public ResponseEntity<String> handleEmailAlreadyExistsException(EmailAlreadyExistsException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
     }
 
     // Tratamento genérico para outras exceções não tratadas

@@ -25,7 +25,7 @@ public class Employee extends User {
     @Column(name = "SALARY", nullable = false, precision = 10, scale = 2)
     private BigDecimal salary;
 
-    @Column(name = "WORK_CARD_NUMBER", nullable = false, length = 11)
+    @Column(name = "WORK_CARD_NUMBER", nullable = false, unique = true, length = 11)
     private String workCardNumber;
 
     @Column(name = "HIRE_DATE", nullable = false)

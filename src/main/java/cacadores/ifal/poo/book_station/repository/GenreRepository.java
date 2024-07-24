@@ -7,5 +7,5 @@ import cacadores.ifal.poo.book_station.model.entity.Genre;
 
 @Repository
 public interface GenreRepository extends JpaRepository<Genre, Long> {
-  boolean existsByName(String name);
+  boolean existsByNameIgnoreCase(String name);
 }
