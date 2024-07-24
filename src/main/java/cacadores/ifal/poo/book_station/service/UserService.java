@@ -1,6 +1,7 @@
 package cacadores.ifal.poo.book_station.service;
 
 import cacadores.ifal.poo.book_station.dto.User.UserCreateDTO;
+import cacadores.ifal.poo.book_station.dto.User.UserResponseDTO;
 import cacadores.ifal.poo.book_station.dto.User.UserUpdateDTO;
 import cacadores.ifal.poo.book_station.exception.EmailAlreadyExistsException;
 import cacadores.ifal.poo.book_station.model.entity.User;
@@ -20,14 +21,14 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    // @Autowired
-    // public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-    //     this.userRepository = userRepository;
-    //     this.passwordEncoder = passwordEncoder;
-    // }
+    public List<UserResponseDTO> getAllUsers() {
+        return userRepository.findAll().stream()
+                .map(this::convertToDTO)
+                .toList();
+    }
 
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    private UserResponseDTO convertToDTO(User user) {
+        return new UserResponseDTO(user);
     }
 
     public Optional<User> getUserById(String id) {
