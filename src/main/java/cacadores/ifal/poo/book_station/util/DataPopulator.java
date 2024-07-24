@@ -1,6 +1,7 @@
 package cacadores.ifal.poo.book_station.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import cacadores.ifal.poo.book_station.repository.*;
@@ -30,8 +31,18 @@ public class DataPopulator {
     private LoanRepository loanRepository;
     @Autowired
     private ReservationRepository reservationRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public void run() throws Exception {
+
+        // Add admin user
+        User adminUser = new User();
+        adminUser.setName("Admin");
+        adminUser.setPassword(passwordEncoder.encode("admin")); // Consider using a secure password and hashing it
+        adminUser.setEmail("admin@admin.com");
+        userRepository.save(adminUser);
+
         // Populate Users
         for (int i = 0; i < 10; i++) {
             userRepository.save(DataFaker.createFakeUser());

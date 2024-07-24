@@ -7,6 +7,7 @@ import cacadores.ifal.poo.book_station.model.entity.items.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Locale;
 import java.util.Random;
 
@@ -56,9 +57,9 @@ public class DataFaker {
 
     public static Author createFakeAuthor() {
         Author author = new Author();
-        author.setName(faker.book().author());
-        author.setBirthDate(LocalDate.now().minusYears(faker.number().numberBetween(20, 100)));
+        author.setName(faker.name().fullName());
         author.setBiography(faker.lorem().paragraph());
+        author.setBirthDate(faker.date().birthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
         return author;
     }
 
@@ -84,13 +85,13 @@ public class DataFaker {
     public static Magazine createFakeMagazine() {
         Magazine magazine = new Magazine();
         magazine.setTitle(faker.book().title());
-        magazine.setIssn(faker.code().isbn10());
+        magazine.setPages(faker.number().numberBetween(20, 200));
+        magazine.setYear(faker.number().numberBetween(1900, 2024));
+        magazine.setAvailableQuantity(faker.number().numberBetween(1, 50));
         magazine.setEdition(faker.number().numberBetween(1, 100));
         magazine.setVolume(faker.number().numberBetween(1, 50));
         magazine.setDescription(faker.lorem().paragraph());
-        magazine.setYear(faker.number().numberBetween(1900, 2023));
-        magazine.setAvailableQuantity(faker.number().numberBetween(1, 100));
-        magazine.setStatus(faker.options().option("AVAILABLE", "BORROWED", "RESERVED"));
+        magazine.setIssn(faker.number().digits(8));
         return magazine;
     }
 
