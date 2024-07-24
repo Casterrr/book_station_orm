@@ -30,7 +30,7 @@ public class Magazine extends Item {
     @Column(name = "volume")
     private Integer volume;
 
-    @Column(name = "description")
+    @Column(name = "description", length = 1000)
     private String description;
 
     public Magazine() {

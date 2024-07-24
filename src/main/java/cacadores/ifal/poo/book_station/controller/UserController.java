@@ -1,6 +1,7 @@
 package cacadores.ifal.poo.book_station.controller;
 
 import cacadores.ifal.poo.book_station.dto.User.UserCreateDTO;
+import cacadores.ifal.poo.book_station.dto.User.UserResponseDTO;
 import cacadores.ifal.poo.book_station.dto.User.UserUpdateDTO;
 import cacadores.ifal.poo.book_station.model.entity.User;
 import cacadores.ifal.poo.book_station.service.UserService;
@@ -27,7 +28,7 @@ public class UserController {
 
     @GetMapping
     @Operation(summary = "Get all users", description = "Retrieves a list of all users")
-    public ResponseEntity<List<User>> getAllUsers() {
+    public ResponseEntity<List<UserResponseDTO>> getAllUsers() {
         return ResponseEntity.ok(userService.getAllUsers());
     }
 

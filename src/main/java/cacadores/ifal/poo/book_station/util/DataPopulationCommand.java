@@ -21,7 +21,7 @@ public class DataPopulationCommand implements CommandLineRunner {
             System.out.println("Starting data population...");
             dataPopulator.run();
             System.out.println("Data population completed successfully.");
-
+            System.exit(0);
         }
     }
 }
