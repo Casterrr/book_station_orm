@@ -20,6 +20,12 @@ Book Station is a library management system built with Spring Boot.
 2. Configure the database:
    Open `src/main/resources/application.properties` and update the database URL, username, and password if necessary.
 
+   ```
+   spring.datasource.url=jdbc:postgresql://localhost:5432/book_station
+   spring.datasource.username=admin
+   spring.datasource.password=admin
+   ```
+
 3. Build the project:
 
    ```
