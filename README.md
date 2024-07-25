@@ -17,6 +17,7 @@ Book Station is a library management system built with Spring Boot.
    cd book-station
    ```
 
+
 2. Configure the database:
    Open `src/main/resources/application.properties` and update the database URL, username, and password if necessary.
 
@@ -26,7 +27,14 @@ Book Station is a library management system built with Spring Boot.
    spring.datasource.password=admin
    ```
 
-3. Build the project:
+
+3. Start docker container:
+   ```
+   docker compose up --build -d
+   ```
+
+
+4. Build the project:
 
    ```
    mvn clean install
@@ -78,8 +86,3 @@ Once the application is running, you can access the Swagger UI for API documenta
 - Reservations: `/api/reservations`
 - Employees: `/api/employees`
 
-## Docker
-
-A Docker Compose file is provided to run a PostgreSQL database. To start the database:
-
-docker-compose -f src/docker-compose.yml up -d
